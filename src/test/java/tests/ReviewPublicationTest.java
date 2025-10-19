@@ -2,21 +2,13 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.conditions.Visible;
 import io.qameta.allure.*;
-import junit.LoginExtension;
 import junit.UITest;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.MovieInfo;
-import pages.PaymentPage;
 import pages.StartPage;
-
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$x;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @Epic("Общий функционал")
@@ -29,7 +21,7 @@ public class ReviewPublicationTest {
     @DisplayName("Публикация отзыва")
     @Description("Тест публикации отзыва с валидными данными")
     public void canBuyTicketTest() {
-        Configuration.holdBrowserOpen = true; //отладочная конфигурация
+        // Configuration.holdBrowserOpen = true; //отладочная конфигурация
 
         String reviewExample = "Один фильм офигительней другого";
         String ratingValue = "4";

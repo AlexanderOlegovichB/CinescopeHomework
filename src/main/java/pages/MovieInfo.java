@@ -19,6 +19,7 @@ public class MovieInfo {
     private SelenideElement reviewAuthor = $("h4.text-xl.w-fit");
     private SelenideElement reviewActionsButton = $("[data-qa-id=\"movie_review_actions_button\"]");
     private SelenideElement reviewActionsDeleteButton = $("[data-qa-id=\"movie_review_action_delete_button\"]");
+    private SelenideElement genreInfo = $("p.text-lg.mt-5");
 
     public void buyTicket() {
         buyButton.click();
@@ -32,6 +33,11 @@ public class MovieInfo {
         ratingSelect.click();
         ratingOption.findBy(text(value)).click();
     }
+
+    public String getGenreInfo() {
+        return genreInfo.getText();
+    }
+
 
     public void sendReview() {
         sendReviewButton.click();
