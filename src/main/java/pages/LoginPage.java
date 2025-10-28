@@ -1,6 +1,8 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class LoginPage {
@@ -11,16 +13,19 @@ public class LoginPage {
 
 
     public LoginPage enterEmail(String value) {
+        inputEmail.shouldBe(visible);
         inputEmail.clear();
         inputEmail.setValue(value);
         return this;
     }
     public LoginPage enterPassword(String value) {
+        inputPassword.shouldBe(visible);
         inputPassword.clear();
         inputPassword.setValue(value);
         return this;
     }
     public StartPage clickSignIn() {
+        signButton.shouldBe(visible);
         signButton.click();
         return new StartPage();
     }

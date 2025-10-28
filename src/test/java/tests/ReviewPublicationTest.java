@@ -4,9 +4,10 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.*;
 import junit.UITest;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pages.MovieInfo;
+import pages.MovieInfoPage;
 import pages.StartPage;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -16,61 +17,60 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @UITest
 public class ReviewPublicationTest {
 
+    private StartPage startPage = new StartPage();
+    private MovieInfoPage movieInfoPage = new MovieInfoPage();
+
     @Test
     @Story("Пользователь публикует отзыв")
     @DisplayName("Публикация отзыва")
     @Description("Тест публикации отзыва с валидными данными")
     public void canBuyTicketTest() {
-        // Configuration.holdBrowserOpen = true; //отладочная конфигурация
+        Configuration.holdBrowserOpen = true; //отладочная конфигурация
+
 
         String reviewExample = "Один фильм офигительней другого";
         String ratingValue = "4";
-        String expectRatingValue = "4/5";
         String reviewAuthor = "Тестовый Юзер Юзерович";
 
 
         Allure.step("Нажать \"Подробнее\" у фильма", () -> {
-            StartPage startPage = new StartPage();
-            startPage.clickInfo();
+            startPage.clickMovieInfo();
         });
 
         Allure.step("Написать отзыв в поле ввода отзыва", () -> {
-            MovieInfo movieInfo = new MovieInfo();
-            movieInfo.reviewEdit(reviewExample);
+            movieInfoPage.reviewEdit(reviewExample);
         });
 
         Allure.step("Выбрать балл рейтинга", () -> {
-            MovieInfo movieInfo = new MovieInfo();
-            movieInfo.setRatingValue(ratingValue);
+            movieInfoPage.setRatingValue(ratingValue);
         });
 
         Allure.step("Нажимаем кнопку \"Отправить\"", () -> {
-            MovieInfo movieInfo = new MovieInfo();
-            movieInfo.sendReview();
+            movieInfoPage.sendReview();
         });
 
         Allure.step("Проверка публикации отзыва", () -> {
-            MovieInfo movieInfo = new MovieInfo();
 
-            String succesReviewPublicationTextAssert = movieInfo.getReviewText();
+            String succesReviewPublicationTextAssert = movieInfoPage.getReviewText();
             assertThat(succesReviewPublicationTextAssert).isEqualTo(reviewExample);
 
-            String succesReviewPublicationAuthorAssert = movieInfo.getReviewAuthor();
+            String succesReviewPublicationAuthorAssert = movieInfoPage.getReviewAuthor();
             assertThat(succesReviewPublicationAuthorAssert).isEqualTo(reviewAuthor);
 
-            String succesReviewPublicationValueAssert = movieInfo.getReviewValue();
+            String succesReviewPublicationValueAssert = movieInfoPage.getReviewValue();
             assertThat(succesReviewPublicationValueAssert).contains(ratingValue);
         });
 
+    }
+        @AfterEach
+        public void cleanReview() {
         Allure.step("Постусловие - удаление отзыва", () -> {
-            MovieInfo movieInfo = new MovieInfo();
-            movieInfo.deleteReview();
+            movieInfoPage.deleteReview();
         });
 
         Allure.step("Проверка удаления отзыва", () -> {
-            MovieInfo movieInfo = new MovieInfo();
 
-            SelenideElement succesVisibleReviewInput = movieInfo.getReviewInput();
+            SelenideElement succesVisibleReviewInput = movieInfoPage.getReviewInput();
             assertThat(succesVisibleReviewInput.isDisplayed());
         });
     }

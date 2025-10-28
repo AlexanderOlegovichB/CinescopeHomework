@@ -3,18 +3,17 @@ package pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class StartPage {
     private String baseUrl = "https://cinescope.t-qa.ru";
-    private SelenideElement loginButton = $("[data-qa-id=\"login_page_button\"]");
-    private SelenideElement infoButton = $x("//main/div[2]//button");
+    private SelenideElement loginButton = $("a[data-qa-id='login_page_button'] > button");
+    private SelenideElement movieInfoButton = $x("(//button[text()='Подробнее'])[1]");
     private SelenideElement profileButton = $("[data-qa-id=\"profile_page_button\"]");
     private SelenideElement moreButton = $("ul.flex");
     private SelenideElement locationFilter = $("[data-qa-id='movies_filter_location_select']");
-    private SelenideElement genreFilter = $x("(//main//button[@role='combobox'])[2]");
+    private SelenideElement genreFilter = $x("(//main//button[@value='all'])");
     private SelenideElement freshFilter = $("[data-qa-id=\"movies_filter_created_at_select\"]");
     private ElementsCollection optionalSelect = $$("[role='option']");
 
@@ -43,15 +42,20 @@ public class StartPage {
         open(baseUrl);
     }
 
+    public void clickLogin() {
+        loginButton.shouldBe(clickable);
+        loginButton.click();
+    }
+
     public void verifiLogin() {
         profileButton.shouldBe(visible);
     }
 
-    public void clickLogin() {
-        loginButton.click();
+    public void clickMovieInfo() {
+        movieInfoButton.click();
     }
 
-    public void clickInfo() {
-        infoButton.click();
+    public SelenideElement getLoginButton() {
+        return loginButton;
     }
 }

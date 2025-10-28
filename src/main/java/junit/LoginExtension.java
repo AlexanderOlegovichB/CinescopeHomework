@@ -1,5 +1,7 @@
 package junit;
 
+import static com.codeborne.selenide.Condition.clickable;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 import com.codeborne.selenide.Selenide;
@@ -19,6 +21,7 @@ public class LoginExtension implements BeforeEachCallback {
 
         StartPage startPage = new StartPage();
         startPage.openStartPage();
+        startPage.getLoginButton().shouldBe(clickable);
         startPage.clickLogin();
 
 

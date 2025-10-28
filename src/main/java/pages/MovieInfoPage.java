@@ -6,7 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
-public class MovieInfo {
+public class MovieInfoPage {
 
     private SelenideElement reviewInput = $("[data-qa-id=\"movie_review_input\"]");
     private SelenideElement buyButton = $x("//button[.//p[text()='Купить билет']]");

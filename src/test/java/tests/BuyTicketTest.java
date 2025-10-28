@@ -1,11 +1,12 @@
 package tests;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.*;
 import junit.UITest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pages.MovieInfo;
+import pages.MovieInfoPage;
 import pages.PaymentPage;
 import pages.StartPage;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -16,12 +17,16 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @UITest
 public class BuyTicketTest {
 
+    private StartPage startPage = new StartPage();
+    private MovieInfoPage movieInfoPage = new MovieInfoPage();
+    private PaymentPage paymentPage = new PaymentPage();
+
     @Test
     @Story("Пользователь покупает билет")
     @DisplayName("Покупка билета")
     @Description("Тест покупки билета с валидными данными")
     public void canBuyTicketTest() {
-        //Configuration.holdBrowserOpen = true; //отладочная конфигурация
+        Configuration.holdBrowserOpen = true; //отладочная конфигурация
 
         String ticketCount = "2";
         String cardHolder = "John Doe";
@@ -32,17 +37,14 @@ public class BuyTicketTest {
         String succesPayment = "Спасибо за покупку";
 
         Allure.step("Нажать \"Подробнее\" у фильма", () -> {
-            StartPage startPage = new StartPage();
-            startPage.clickInfo();
+            startPage.clickMovieInfo();
         });
 
         Allure.step("Нажать \"Купить билет\" в карточке фильма", () -> {
-            MovieInfo movieInfo = new MovieInfo();
-            movieInfo.buyTicket();
+            movieInfoPage.buyTicket();
         });
 
         Allure.step("Заполнение формы оплаты", () -> {
-            PaymentPage paymentPage = new PaymentPage();
             paymentPage.setTicketCount(ticketCount);
             paymentPage.setCardNumber(cardNumber);
             paymentPage.setCardHolder(cardHolder);
@@ -53,7 +55,6 @@ public class BuyTicketTest {
         });
 
         Allure.step("Проверка успешной оплаты", () -> {
-            PaymentPage paymentPage = new PaymentPage();
 
             String succesTextAssert = paymentPage.getSuccesText();
             assertThat(succesTextAssert).isEqualTo(succesPayment);
