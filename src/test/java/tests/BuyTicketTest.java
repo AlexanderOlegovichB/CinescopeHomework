@@ -1,7 +1,9 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
-import io.qameta.allure.*;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import junit.UITest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,24 +38,24 @@ public class BuyTicketTest {
         String cardCvv = "123";
         String successPayment = "Спасибо за покупку";
 
-            startPage.clickMovieInfo();
+        startPage.clickMovieInfo();
 
-            movieInfoPage.buyTicket();
+        movieInfoPage.buyTicket();
 
-            paymentPage
-                    .setTicketCount(ticketCount)
-                    .setCardNumber(cardNumber)
-                    .setCardHolder(cardHolder)
-                    .setExpMonth(expMonth)
-                    .setExpYear(expYear)
-                    .setCvv(cardCvv)
-                    .submitPayment();
+        paymentPage
+                .setTicketCount(ticketCount)
+                .setCardNumber(cardNumber)
+                .setCardHolder(cardHolder)
+                .setExpMonth(expMonth)
+                .setExpYear(expYear)
+                .setCvv(cardCvv)
+                .submitPayment();
 
-            String successTextAssert = paymentPage.getSuccessText();
-            assertThat(successTextAssert).isEqualTo(successPayment);
+        String successTextAssert = paymentPage.getSuccessText();
+        assertThat(successTextAssert).isEqualTo(successPayment);
 
-            assertThat(paymentPage.isSuccessIconVisible())
-                    .as("Иконка успеха должна быть видна")
-                    .isTrue();
+        assertThat(paymentPage.isSuccessIconVisible())
+                .as("Иконка успеха должна быть видна")
+                .isTrue();
     }
 }

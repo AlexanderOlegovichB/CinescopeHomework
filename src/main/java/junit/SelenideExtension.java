@@ -1,11 +1,8 @@
 package junit;
 
 import com.codeborne.selenide.Configuration;
-import static com.codeborne.selenide.Selenide.*;
-
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;

@@ -1,17 +1,16 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.*;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import junit.UITest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.MovieInfoPage;
-import pages.PaymentPage;
 import pages.StartPage;
 
-import static com.codeborne.selenide.Condition.visible;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 

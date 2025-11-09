@@ -1,11 +1,11 @@
 package junit;
 
-import static com.codeborne.selenide.Condition.clickable;
-
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import pages.LoginPage;
 import pages.StartPage;
+
+import static com.codeborne.selenide.Condition.clickable;
 
 public class LoginExtension implements BeforeEachCallback {
 
@@ -21,11 +21,6 @@ public class LoginExtension implements BeforeEachCallback {
         startPage.clickLogin();
 
 
-        StartPage loggedStartPage = new LoginPage()
-                .enterEmail(email)
-                .enterPassword(password)
-                .clickSignIn();
-
-        loggedStartPage.verifyLogin();
+        StartPage loggedStartPage = new LoginPage().enterEmail(email).enterPassword(password).clickSignIn().verifyLogin();
     }
 }

@@ -49,8 +49,9 @@ public class StartPage {
         loginButton.click();
     }
 
-    public void verifyLogin() {
+    public StartPage verifyLogin() {
         profileButton.shouldBe(visible);
+        return this;
     }
 
     @Step("Нажимаем 'Подробнее' у первого фильма в выдаче")

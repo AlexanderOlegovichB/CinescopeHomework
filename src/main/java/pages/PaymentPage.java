@@ -8,7 +8,8 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class PaymentPage {
 
@@ -74,5 +75,7 @@ public class PaymentPage {
         return successText.getText();
     }
 
-    public boolean isSuccessIconVisible() {return successIcon.is(visible, Duration.ofSeconds(5));}
+    public boolean isSuccessIconVisible() {
+        return successIcon.is(visible, Duration.ofSeconds(5));
+    }
 }

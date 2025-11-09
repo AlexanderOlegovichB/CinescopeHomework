@@ -3,7 +3,7 @@ package pages;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage {
     private SelenideElement inputEmail = $("[data-qa-id='login_email_input']");
@@ -17,12 +17,14 @@ public class LoginPage {
         inputEmail.setValue(value);
         return this;
     }
+
     public LoginPage enterPassword(String value) {
         inputPassword.shouldBe(visible);
         inputPassword.clear();
         inputPassword.setValue(value);
         return this;
     }
+
     public StartPage clickSignIn() {
         signButton.shouldBe(visible);
         signButton.click();

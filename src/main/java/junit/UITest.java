@@ -11,7 +11,4 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @ExtendWith({SelenideExtension.class, LoginExtension.class})
-public @interface UITest {
-    String browser() default "chrome";
-    boolean headless() default false;
-}
+public @interface UITest {}

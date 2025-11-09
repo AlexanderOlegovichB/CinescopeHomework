@@ -67,7 +67,9 @@ public class MovieInfoPage {
         return reviewAuthor.getText();
     }
 
-    public boolean isSuccesReviewDeleteNotif() {return succesReviewDeleteNotif.is(visible, Duration.ofSeconds(5));}
+    public boolean isSuccesReviewDeleteNotif() {
+        return succesReviewDeleteNotif.is(visible, Duration.ofSeconds(5));
+    }
 
     @Step("Удаление отзыва")
     public MovieInfoPage deleteReview() {
