@@ -1,7 +1,9 @@
 package pages;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -10,36 +12,36 @@ public class StartPage {
     private String baseUrl = "https://cinescope.t-qa.ru";
     private SelenideElement loginButton = $("a[data-qa-id='login_page_button'] > button");
     private SelenideElement movieInfoButton = $x("(//button[text()='Подробнее'])[1]");
-    private SelenideElement profileButton = $("[data-qa-id=\"profile_page_button\"]");
+    private SelenideElement profileButton = $("[data-qa-id='profile_page_button']");
     private SelenideElement moreButton = $("ul.flex");
     private SelenideElement locationFilter = $("[data-qa-id='movies_filter_location_select']");
     private SelenideElement genreFilter = $x("(//main//button[@value='all'])");
-    private SelenideElement freshFilter = $("[data-qa-id=\"movies_filter_created_at_select\"]");
+    private SelenideElement freshFilter = $("[data-qa-id='movies_filter_created_at_select']");
     private ElementsCollection optionalSelect = $$("[role='option']");
 
-
-    public void clickMore() {
+    @Step("Нажимаем 'Все фильмы'")
+    public StartPage clickMore() {
         moreButton.click();
+        return this;
     }
 
-    public void setLocationFilter(String location) {
+    @Step("Выставляем локацию")
+    public StartPage setLocationFilter(String location) {
         locationFilter.parent().click();
         optionalSelect.findBy(text(location)).click();
+        return this;
     }
 
-    public void setGenreFilter(String genre) {
+    @Step("Выставляем гендер")
+    public StartPage setGenreFilter(String genre) {
         genreFilter.click();
         optionalSelect.findBy(text(genre)).click();
+        return this;
     }
 
-
-    public void setFreshFilter(String fresh) {
-        freshFilter.parent().click();
-        optionalSelect.findBy(text(fresh)).click();
-    }
-
-    public void openStartPage() {
-        open(baseUrl);
+    public StartPage open() {
+        Selenide.open(baseUrl);
+        return this;
     }
 
     public void clickLogin() {
@@ -47,12 +49,14 @@ public class StartPage {
         loginButton.click();
     }
 
-    public void verifiLogin() {
+    public void verifyLogin() {
         profileButton.shouldBe(visible);
     }
 
-    public void clickMovieInfo() {
+    @Step("Нажимаем 'Подробнее' у первого фильма в выдаче")
+    public MovieInfoPage clickMovieInfo() {
         movieInfoButton.click();
+        return new MovieInfoPage();
     }
 
     public SelenideElement getLoginButton() {

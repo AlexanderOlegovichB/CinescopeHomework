@@ -1,7 +1,6 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.*;
 import junit.UITest;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import pages.MovieInfoPage;
 import pages.PaymentPage;
 import pages.StartPage;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
@@ -26,7 +26,7 @@ public class BuyTicketTest {
     @DisplayName("Покупка билета")
     @Description("Тест покупки билета с валидными данными")
     public void canBuyTicketTest() {
-        Configuration.holdBrowserOpen = true; //отладочная конфигурация
+
 
         String ticketCount = "2";
         String cardHolder = "John Doe";
@@ -34,32 +34,26 @@ public class BuyTicketTest {
         String expMonth = "Декабрь";
         String expYear = "2025";
         String cardCvv = "123";
-        String succesPayment = "Спасибо за покупку";
+        String successPayment = "Спасибо за покупку";
 
-        Allure.step("Нажать \"Подробнее\" у фильма", () -> {
             startPage.clickMovieInfo();
-        });
 
-        Allure.step("Нажать \"Купить билет\" в карточке фильма", () -> {
             movieInfoPage.buyTicket();
-        });
 
-        Allure.step("Заполнение формы оплаты", () -> {
-            paymentPage.setTicketCount(ticketCount);
-            paymentPage.setCardNumber(cardNumber);
-            paymentPage.setCardHolder(cardHolder);
-            paymentPage.setExpMonth(expMonth);
-            paymentPage.setExpYear(expYear);
-            paymentPage.setCvv(cardCvv);
-            paymentPage.buyTicket();
-        });
+            paymentPage
+                    .setTicketCount(ticketCount)
+                    .setCardNumber(cardNumber)
+                    .setCardHolder(cardHolder)
+                    .setExpMonth(expMonth)
+                    .setExpYear(expYear)
+                    .setCvv(cardCvv)
+                    .submitPayment();
 
-        Allure.step("Проверка успешной оплаты", () -> {
+            String successTextAssert = paymentPage.getSuccessText();
+            assertThat(successTextAssert).isEqualTo(successPayment);
 
-            String succesTextAssert = paymentPage.getSuccesText();
-            assertThat(succesTextAssert).isEqualTo(succesPayment);
-            SelenideElement succesIconAssert = paymentPage.getSuccesIcon();
-            assertThat(succesIconAssert.isDisplayed());
-        });
+            assertThat(paymentPage.isSuccessIconVisible())
+                    .as("Иконка успеха должна быть видна")
+                    .isTrue();
     }
 }

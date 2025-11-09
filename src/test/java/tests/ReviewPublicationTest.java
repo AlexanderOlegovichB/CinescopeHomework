@@ -8,7 +8,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.MovieInfoPage;
+import pages.PaymentPage;
 import pages.StartPage;
+
+import static com.codeborne.selenide.Condition.visible;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
@@ -24,54 +27,37 @@ public class ReviewPublicationTest {
     @Story("Пользователь публикует отзыв")
     @DisplayName("Публикация отзыва")
     @Description("Тест публикации отзыва с валидными данными")
-    public void canBuyTicketTest() {
-        Configuration.holdBrowserOpen = true; //отладочная конфигурация
-
+    public void reviewPublicationTest() {
 
         String reviewExample = "Один фильм офигительней другого";
         String ratingValue = "4";
         String reviewAuthor = "Тестовый Юзер Юзерович";
 
+        startPage.clickMovieInfo();
 
-        Allure.step("Нажать \"Подробнее\" у фильма", () -> {
-            startPage.clickMovieInfo();
-        });
+        movieInfoPage
+                .setReviewText(reviewExample)
+                .setRatingValue(ratingValue)
+                .sendReview();
 
-        Allure.step("Написать отзыв в поле ввода отзыва", () -> {
-            movieInfoPage.reviewEdit(reviewExample);
-        });
 
-        Allure.step("Выбрать балл рейтинга", () -> {
-            movieInfoPage.setRatingValue(ratingValue);
-        });
+        String succesReviewPublicationTextAssert = movieInfoPage.getReviewText();
+        assertThat(succesReviewPublicationTextAssert).isEqualTo(reviewExample);
 
-        Allure.step("Нажимаем кнопку \"Отправить\"", () -> {
-            movieInfoPage.sendReview();
-        });
+        String succesReviewPublicationAuthorAssert = movieInfoPage.getReviewAuthor();
+        assertThat(succesReviewPublicationAuthorAssert).isEqualTo(reviewAuthor);
 
-        Allure.step("Проверка публикации отзыва", () -> {
-
-            String succesReviewPublicationTextAssert = movieInfoPage.getReviewText();
-            assertThat(succesReviewPublicationTextAssert).isEqualTo(reviewExample);
-
-            String succesReviewPublicationAuthorAssert = movieInfoPage.getReviewAuthor();
-            assertThat(succesReviewPublicationAuthorAssert).isEqualTo(reviewAuthor);
-
-            String succesReviewPublicationValueAssert = movieInfoPage.getReviewValue();
-            assertThat(succesReviewPublicationValueAssert).contains(ratingValue);
-        });
+        String succesReviewPublicationValueAssert = movieInfoPage.getReviewValue();
+        assertThat(succesReviewPublicationValueAssert).contains(ratingValue);
 
     }
-        @AfterEach
-        public void cleanReview() {
-        Allure.step("Постусловие - удаление отзыва", () -> {
-            movieInfoPage.deleteReview();
-        });
 
-        Allure.step("Проверка удаления отзыва", () -> {
+    @AfterEach
+    public void cleanReview() {
+        movieInfoPage.deleteReview();
 
-            SelenideElement succesVisibleReviewInput = movieInfoPage.getReviewInput();
-            assertThat(succesVisibleReviewInput.isDisplayed());
-        });
+        assertThat(movieInfoPage.isSuccesReviewDeleteNotif())
+                .as("Должно отображаться уведомление об успешном удалении отзыва")
+                .isTrue();
     }
 }

@@ -1,4 +1,5 @@
 package tests;
+
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.*;
 import junit.UITest;
@@ -8,7 +9,6 @@ import pages.MovieInfoPage;
 import pages.StartPage;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
 
 
 @Epic("Общий функционал")
@@ -25,26 +25,10 @@ public class AddFiltersTest {
     @Description("Валидный тест применения фильтров поиска фильмов на главной странице")
 
     public void correctAddFiltersTest() {
-       Configuration.holdBrowserOpen = true; //отладочная конфигурация
         String genre = "Триллер";
+        startPage.clickMore().setGenreFilter(genre).clickMovieInfo();
 
-
-        Allure.step("Нажимаем 'Все фильмы'", () -> {
-            startPage.clickMore();
-        });
-
-        Allure.step("Выбираем жанр", () -> {
-            startPage.setGenreFilter(genre);
-        });
-
-        Allure.step("Нажимаем 'Подробнее' у первого фильма в выдаче", () -> {
-            startPage.clickMovieInfo();
-        });
-
-        Allure.step("Проверяем жанр на соответствие фильтру", () -> {
-
-            String succesGenreFilterMatch = movieInfoPage.getGenreInfo();
-            assertThat(succesGenreFilterMatch).contains(genre);
-        });
+        String succesGenreFilterMatch = movieInfoPage.getGenreInfo();
+        assertThat(succesGenreFilterMatch).contains(genre);
     }
 }

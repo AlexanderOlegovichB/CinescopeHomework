@@ -1,13 +1,9 @@
 package junit;
 
 import static com.codeborne.selenide.Condition.clickable;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
 
-import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import pages.DashboardPage;
 import pages.LoginPage;
 import pages.StartPage;
 
@@ -20,7 +16,7 @@ public class LoginExtension implements BeforeEachCallback {
 
 
         StartPage startPage = new StartPage();
-        startPage.openStartPage();
+        startPage.open();
         startPage.getLoginButton().shouldBe(clickable);
         startPage.clickLogin();
 
@@ -30,6 +26,6 @@ public class LoginExtension implements BeforeEachCallback {
                 .enterPassword(password)
                 .clickSignIn();
 
-        loggedStartPage.verifiLogin();
+        loggedStartPage.verifyLogin();
     }
 }
