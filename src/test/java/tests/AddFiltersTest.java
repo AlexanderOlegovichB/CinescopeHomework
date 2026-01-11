@@ -28,9 +28,13 @@ public class AddFiltersTest {
 
     public void correctAddFiltersTest() {
         String genre = "Триллер";
-        startPage.clickMore().setGenreFilter(genre).clickMovieInfo();
 
-        String succesGenreFilterMatch = movieInfoPage.getGenreInfo();
-        assertThat(succesGenreFilterMatch).contains(genre);
+        startPage
+                .clickAllMovies() // нажимаем "Все фильмы"
+                .setGenreFilter(genre) // Выбираем жанр
+                .clickMovieInfo(); // у найденного фильма жмем "Подробнее"
+
+        String successGenreFilterMatch = movieInfoPage.getGenreInfo();
+        assertThat(successGenreFilterMatch).contains(genre);
     }
 }

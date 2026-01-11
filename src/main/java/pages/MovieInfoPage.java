@@ -67,7 +67,7 @@ public class MovieInfoPage {
         return reviewAuthor.getText();
     }
 
-    public boolean isSuccesReviewDeleteNotif() {
+    public boolean isSuccessReviewDeleteNotification() {
         return succesReviewDeleteNotif.is(visible, Duration.ofSeconds(5));
     }
 
