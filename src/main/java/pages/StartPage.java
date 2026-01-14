@@ -13,14 +13,11 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class StartPage {
-    private String baseUrl = "https://cinescope.t-qa.ru";
     private SelenideElement loginButton = $("a[data-qa-id='login_page_button'] > button");
     private SelenideElement movieInfoButton = $x("(//button[text()='Подробнее'])[1]");
     private SelenideElement profileButton = $("[data-qa-id='profile_page_button']");
     private SelenideElement moreButton = $("ul.flex");
-    private SelenideElement locationFilter = $("[data-qa-id='movies_filter_location_select']");
     private SelenideElement genreFilter = $x("(//main//button[@value='all'])");
-    private SelenideElement freshFilter = $("[data-qa-id='movies_filter_created_at_select']");
     private ElementsCollection optionalSelect = $$("[role='option']");
 
 
@@ -28,8 +25,8 @@ public class StartPage {
     public StartPage loginAs(String email, String password) {
         clickLogin();
         new LoginPage()
-                .enterEmail(email)
-                .enterPassword(password)
+                .setEmail(email)
+                .setPassword(password)
                 .clickSignIn()
                 .verifyLogin();
         return this;
@@ -50,7 +47,7 @@ public class StartPage {
 
     @Step("Открываем стартовую страницу")
     public StartPage open() {
-        Selenide.open(baseUrl);
+        Selenide.open("/");
         return this;
     }
 
