@@ -40,14 +40,20 @@ public class ReviewPublicationTest {
                 .sendReview();
 
 
-        String succesReviewPublicationTextAssert = movieInfoPage.getReviewText();
-        assertThat(succesReviewPublicationTextAssert).isEqualTo(reviewExample);
+        String successReviewPublicationTextAssert = movieInfoPage.getReviewText();
+        assertThat(successReviewPublicationTextAssert)
+                .as("Текст отзыва должен соответствовать указанному")
+                .isEqualTo(reviewExample);
 
-        String succesReviewPublicationAuthorAssert = movieInfoPage.getReviewAuthor();
-        assertThat(succesReviewPublicationAuthorAssert).isEqualTo(reviewAuthor);
+        String successReviewPublicationAuthorAssert = movieInfoPage.getReviewAuthor();
+        assertThat(successReviewPublicationAuthorAssert)
+                .as("Автор отзыва должен соответствовать указанному")
+                .isEqualTo(reviewAuthor);
 
-        String succesReviewPublicationValueAssert = movieInfoPage.getReviewValue();
-        assertThat(succesReviewPublicationValueAssert).contains(ratingValue);
+        String successReviewPublicationValueAssert = movieInfoPage.getReviewValue();
+        assertThat(successReviewPublicationValueAssert)
+                .as("Оценка должна соответствовать указанной")
+                .contains(ratingValue);
 
     }
 
@@ -55,7 +61,7 @@ public class ReviewPublicationTest {
     public void cleanReview() {
         movieInfoPage.deleteReview();
 
-        assertThat(movieInfoPage.isSuccesReviewDeleteNotif())
+        assertThat(movieInfoPage.isSuccessReviewDeleteNotification())
                 .as("Должно отображаться уведомление об успешном удалении отзыва")
                 .isTrue();
     }

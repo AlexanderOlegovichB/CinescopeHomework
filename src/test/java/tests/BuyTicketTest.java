@@ -34,7 +34,7 @@ public class BuyTicketTest {
         String cardHolder = "John Doe";
         String cardNumber = "4242424242424242";
         String expMonth = "Декабрь";
-        String expYear = "2025";
+        String expYear = "2026";
         String cardCvv = "123";
         String successPayment = "Спасибо за покупку";
 

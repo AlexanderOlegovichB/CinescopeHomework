@@ -17,14 +17,12 @@ public class PaymentPage {
     private SelenideElement cardNumber = $("[data-qa-id='payment_card_number_input']");
     private SelenideElement cardHolder = $("[data-qa-id='payment_card_holder_input']");
     private SelenideElement cardExpMonth = $("[data-qa-id='payment_card_month_select']");
-    private ElementsCollection cardExpMonthSelector = $$("[role='option']");
     private SelenideElement cardExpYear = $("[data-qa-id='payment_card_year_select']");
-    private ElementsCollection cardExpYearSelector = $$("[role='option']");
+    private ElementsCollection selectOptions = $$("[role='option']");
     private SelenideElement cardCvv = $("[data-qa-id='payment_card_cvc_input']");
     private SelenideElement paymentButton = $("[data-qa-id='payment_submit_button']");
     private SelenideElement successIcon = $("svg.lucide-circle-check-big.text-green-500");
     private SelenideElement successText = $("p.text-xl");
-    private SelenideElement returnToMainButton = $("svg.lucide lucide-circle-check-big.text-green-500");
 
 
     @Step("Выставить кол-во билетов")
@@ -48,16 +46,17 @@ public class PaymentPage {
     @Step("Выставить месяц карты")
     public PaymentPage setExpMonth(String month) {
         cardExpMonth.click();
-        cardExpMonthSelector.findBy(text(month)).click();
+        selectOptions.findBy(text(month)).click();
         return this;
     }
 
     @Step("Выставить год карты")
     public PaymentPage setExpYear(String year) {
         cardExpYear.click();
-        cardExpYearSelector.findBy(text(year)).click();
+        selectOptions.findBy(text(year)).click();
         return this;
     }
+
 
     @Step("Выставить cvv")
     public PaymentPage setCvv(String value) {

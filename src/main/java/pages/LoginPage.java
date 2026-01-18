@@ -11,14 +11,14 @@ public class LoginPage {
     private SelenideElement signButton = $("[data-qa-id='login_submit_button']");
 
 
-    public LoginPage enterEmail(String value) {
+    public LoginPage setEmail(String value) {
         inputEmail.shouldBe(visible);
         inputEmail.clear();
         inputEmail.setValue(value);
         return this;
     }
 
-    public LoginPage enterPassword(String value) {
+    public LoginPage setPassword(String value) {
         inputPassword.shouldBe(visible);
         inputPassword.clear();
         inputPassword.setValue(value);

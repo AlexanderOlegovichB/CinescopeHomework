@@ -23,7 +23,7 @@ public class MovieInfoPage {
     private SelenideElement reviewActionsButton = $("[data-qa-id='movie_review_actions_button']");
     private SelenideElement reviewActionsDeleteButton = $("[data-qa-id='movie_review_action_delete_button']");
     private SelenideElement genreInfo = $("p.text-lg.mt-5");
-    private SelenideElement succesReviewDeleteNotif = $x("//div[text()='Отзыв успешно удален']");
+    private SelenideElement successReviewDeleteNotification = $x("//div[text()='Отзыв успешно удален']");
 
 
     @Step("Покупаем билет")
@@ -67,8 +67,8 @@ public class MovieInfoPage {
         return reviewAuthor.getText();
     }
 
-    public boolean isSuccesReviewDeleteNotif() {
-        return succesReviewDeleteNotif.is(visible, Duration.ofSeconds(5));
+    public boolean isSuccessReviewDeleteNotification() {
+        return successReviewDeleteNotification.is(visible, Duration.ofSeconds(5));
     }
 
     @Step("Удаление отзыва")
