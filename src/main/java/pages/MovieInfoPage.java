@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 
 import java.time.Duration;
@@ -54,6 +55,15 @@ public class MovieInfoPage {
         sendReviewButton.click();
         return this;
     }
+
+    @Step("Достаем id фильма")
+    public Integer getMovieId() {
+        String url = WebDriverRunner.url();
+        String idMaybeWithQuery = url.replaceFirst("^https?://[^/]+/movies/", "");
+        String idOnly = idMaybeWithQuery.split("\\?")[0];
+        return Integer.valueOf(idOnly);
+    }
+
 
     public String getReviewText() {
         return reviewText.getText();
