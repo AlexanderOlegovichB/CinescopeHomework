@@ -14,6 +14,7 @@ import pages.StartPage;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
+
 @Epic("Общий функционал")
 @Feature("Покупка билета")
 @UITest
