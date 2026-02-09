@@ -26,4 +26,17 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    // Поддержка тегов через -Ptags=userTest
+    if (project.hasProperty("tags")) {
+        useJUnitPlatform {
+            includeTags project.property("tags").toString()
+        }
+    }
+
+    // Опционально: исключение тегов
+    if (project.hasProperty("excludeTags")) {
+        useJUnitPlatform {
+            excludeTags project.property("excludeTags").toString()
+        }
+    }
 }

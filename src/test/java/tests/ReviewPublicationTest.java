@@ -12,6 +12,7 @@ import junit.UITest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.MovieInfoPage;
 import pages.StartPage;
@@ -21,6 +22,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 @Epic("Общий функционал")
+@Tag("smoke")
 @Feature("Отзывы")
 @UITest(loginRole = RoleCreds.USER)
 @DisplayName("Тесты публикации отзыва")
@@ -71,7 +73,8 @@ public class ReviewPublicationTest {
         movieInfoPage
                 .setReviewText(reviewExample)
                 .setRatingValue(ratingValue)
-                .sendReview();
+                .sendReview()
+                .waitForReviewWithText(reviewExample);
 
 //        Проверки
         String successReviewPublicationTextAssert = movieInfoPage.getReviewText();
