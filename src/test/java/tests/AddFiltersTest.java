@@ -6,6 +6,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import junit.UITest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.MovieInfoPage;
 import pages.StartPage;
@@ -16,6 +17,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @Epic("Общий функционал")
 @Feature("Фильтры")
 @UITest
+@Tag("regress")
+@DisplayName("Применение фильтров")
 public class AddFiltersTest {
 
     private MovieInfoPage movieInfoPage = new MovieInfoPage();

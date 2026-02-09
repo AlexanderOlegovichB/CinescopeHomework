@@ -81,6 +81,12 @@ public class MovieInfoPage {
         return successReviewDeleteNotification.is(visible, Duration.ofSeconds(5));
     }
 
+    @Step("Ожидание отзыва с текстом: {expectedText}")
+    public MovieInfoPage waitForReviewWithText(String expectedText) {
+        $(reviewText).shouldHave(text(expectedText), Duration.ofSeconds(10));
+        return this;
+    }
+
     @Step("Удаление отзыва")
     public MovieInfoPage deleteReview() {
         reviewActionsButton.click();
