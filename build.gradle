@@ -19,24 +19,29 @@ dependencies {
 
     testImplementation 'io.rest-assured:rest-assured:5.4.0'
 
-    // testImplementation 'https://github.com/AlexanderOlegovichB/cinescope-api-steps/releases/tag/1.0.0'
     testImplementation 'com.github.AlexanderOlegovichB:cinescope-api-steps:1.0.1'
 
 }
 
 tasks.test {
     useJUnitPlatform()
-    // Поддержка тегов через -Ptags=userTest
     if (project.hasProperty("tags")) {
         useJUnitPlatform {
             includeTags project.property("tags").toString()
         }
     }
 
-    // Опционально: исключение тегов
     if (project.hasProperty("excludeTags")) {
         useJUnitPlatform {
             excludeTags project.property("excludeTags").toString()
         }
     }
+
+    systemProperties += [
+            'junit.jupiter.execution.parallel.enabled'                 : true,
+            'junit.jupiter.execution.parallel.mode.default'            : 'concurrent',
+            'junit.jupiter.execution.parallel.mode.classes.default'    : 'concurrent',
+            'junit.jupiter.execution.parallel.config.strategy'         : 'fixed',
+            'junit.jupiter.execution.parallel.config.fixed.parallelism': '4'
+    ]
 }
