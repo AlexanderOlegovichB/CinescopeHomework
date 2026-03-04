@@ -22,7 +22,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 @Epic("Общий функционал")
-@Tag("smoke")
+@Tag("regress")
 @Feature("Отзывы")
 @UITest(loginRole = RoleCreds.USER)
 @DisplayName("Тесты публикации отзыва")
