@@ -17,7 +17,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @Epic("Общий функционал")
 @Feature("Фильтры")
 @UITest
-@Tag("regress")
+@Tag("smoke")
 @DisplayName("Применение фильтров")
 public class AddFiltersTest {
 
